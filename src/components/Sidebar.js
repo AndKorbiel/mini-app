@@ -11,6 +11,7 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
+import ListAltOutlinedIcon from "@mui/icons-material/ListAltOutlined";
 
 function Sidebar() {
   return (
@@ -32,6 +33,11 @@ function Sidebar() {
             {[
               { name: "Home", link: "/", icon: <InboxIcon /> },
               { name: "About", link: "/about", icon: <MailIcon /> },
+              {
+                name: "Articles",
+                link: "/articles",
+                icon: <ListAltOutlinedIcon />,
+              },
             ].map((el, index) => (
               <Link to={el.link}>
                 <ListItem button key={el.name}>

@@ -11,14 +11,37 @@ import Sidebar from "./components/Sidebar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Footer from "./components/Footer";
+import ArticlesList from "./views/ArticlesList";
+import ArticlePage from "./views/ArticlePage";
+import InnerBreadcrumbs from "./components/Breadcrumbs";
 
 export const MyContext = React.createContext("Message");
 export const drawerWidth = 240;
+
+const routes = [
+  { path: "/", element: <Home /> },
+  { path: "/articles", element: <ArticlesList /> },
+  {
+    path: "/articles/single-article/:id",
+    element: <ArticlePage />,
+  },
+  { path: "/about", element: <About /> },
+  { path: "/single-page/:id", element: <SinglePage /> },
+];
 
 const App = () => {
   const [count, setCount] = useState(0);
   const handleSetCount = () => {
     setCount(count + 1);
+  };
+
+  const child = (path, element) => {
+    return (
+      <>
+        <InnerBreadcrumbs crumbs={path} />
+        {element}
+      </>
+    );
   };
 
   return (
@@ -32,10 +55,14 @@ const App = () => {
             sx={{ flexGrow: 1, p: 3, ml: drawerWidth + "px" }}
           >
             <Toolbar />
+
             <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/single-page/:id" element={<SinglePage />} />
+              {routes.map((route) => (
+                <Route
+                  path={route.path}
+                  element={child(route.path, route.element)}
+                />
+              ))}
             </Routes>
           </Box>
           <Footer />
